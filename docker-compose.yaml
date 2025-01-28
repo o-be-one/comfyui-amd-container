@@ -5,7 +5,7 @@ services:
     ports:
       - "8188:8188"
     volumes:
-      - ./data/models:/app/models:Z
+      - ./data/checkpoints:/app/models/checkpoints:Z
       - ./data/input:/app/input:Z
       - ./data/output:/app/output:Z
     devices:
