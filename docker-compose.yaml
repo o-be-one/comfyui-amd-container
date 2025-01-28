@@ -1,0 +1,19 @@
+version: '3'
+services:
+  comfyui:
+    build: .
+    ports:
+      - "8188:8188"
+    volumes:
+      - ./data/models:/app/models:Z
+      - ./data/input:/app/input:Z
+      - ./data/output:/app/output:Z
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    group_add:
+      - video
+    environment:
+      - HSA_OVERRIDE_GFX_VERSION=11.0.0
+    security_opt:
+      - label=disable
