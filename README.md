@@ -55,5 +55,8 @@ You are all set, you can follow the [Readme from the requirements](#requirements
 
 ## TODO
 
+- [ ] clean documentation
 - [ ] ensure compatibility with Docker
+- [ ] set a defined ComfyUI version
 - [ ] use GitHub Actions to build and push the container to GitHub registry (and remove the build step in compose)
+- [ ] add DependaBot to keep ComfyUI up to date
