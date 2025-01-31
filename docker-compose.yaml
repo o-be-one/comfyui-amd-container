@@ -1,11 +1,30 @@
 version: '3'
 services:
   comfyui:
-    build: .
+    name: comfyui
+    image: o-be-one/comfyui-amd-docker:latest
     ports:
       - "8188:8188"
     volumes:
-      - ./data/checkpoints:/app/models/checkpoints:Z
+      - ./data/models/checkpoints:/app/models/checkpoints:Z
+      - ./data/models/checkpointsInitial:/app/models/checkpointsInitial:Z
+      - ./data/models/clip:/app/models/clip:Z
+      - ./data/models/clip_vision:/app/models/clip_vision:Z
+      #- ./data/models/configs:/app/models/configs:Z
+      - ./data/models/controlnet:/app/models/controlnet:Z
+      - ./data/models/diffusers:/app/models/diffusers:Z
+      - ./data/models/diffusion_models:/app/models/diffusion_models:Z
+      - ./data/models/embeddings:/app/models/embeddings:Z
+      - ./data/models/gligen:/app/models/gligen:Z
+      - ./data/models/hypernetworks:/app/models/hypernetworks:Z
+      - ./data/models/loras:/app/models/loras:Z
+      - ./data/models/photomaker:/app/models/photomaker:Z
+      - ./data/models/style_models:/app/models/style_models:Z
+      - ./data/models/text_encoders:/app/models/text_encoders:Z
+      - ./data/models/unet:/app/models/unet:Z
+      - ./data/models/upscale_models:/app/models/upscale_models:Z
+      - ./data/models/vae:/app/models/vae:Z
+      - ./data/models/vae_approx:/app/models/vae_approx:Z
       - ./data/input:/app/input:Z
       - ./data/output:/app/output:Z
     devices:
@@ -14,6 +33,7 @@ services:
     group_add:
       - video
     environment:
-      - HSA_OVERRIDE_GFX_VERSION=11.0.0
+      - HSA_OVERRIDE_GFX_VERSION=11.0.0 # Edit according to your AMD GPU
+      - PYTORCH_ROCM_ARCH=gfx1100 # Edit according to your AMD GPU
     security_opt:
       - label=disable
