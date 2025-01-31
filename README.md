@@ -43,7 +43,7 @@ I don't got further as all of this is in the docs already and we only particular
 ## TODO
 
 - [ ] clean documentation
-- [ ] ensure compatibility with Docker
-- [ ] set a defined ComfyUI version
-- [ ] use GitHub Actions to build and push the container to GitHub registry (and remove the build step in compose)
+- [ ] ensure compose file compatibility with Docker
 - [ ] add DependaBot to keep ComfyUI up to date
+- [x] set a defined ComfyUI version
+- [x] use GitHub Actions to build and push the container to GitHub registry (and remove the build step in compose)
