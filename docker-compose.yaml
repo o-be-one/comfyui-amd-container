@@ -2,7 +2,7 @@ version: '3'
 services:
   comfyui:
     name: comfyui
-    image: o-be-one/comfyui-amd-docker:latest
+    image: ghcr.io/o-be-one/comfyui-amd-docker:latest
     ports:
       - "8188:8188"
     volumes:
