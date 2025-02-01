@@ -1,4 +1,4 @@
-FROM docker.io/rocm/pytorch:rocm6.3.1_ubuntu22.04_py3.10_pytorch as baseimage
+FROM docker.io/rocm/pytorch:rocm6.3.1_ubuntu22.04_py3.10_pytorch
 
 RUN apt-get update && apt-get install -y \
     git \
