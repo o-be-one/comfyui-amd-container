@@ -17,7 +17,7 @@ RUN git clone https://github.com/comfyanonymous/ComfyUI.git . \
     torch \
     torchvision \
     torchaudio \
-    --index-url https://download.pytorch.org/whl/rocm6.3 \
+    --index-url https://download.pytorch.org/whl/rocm6.2 \
     && pip3 install -r requirements.txt
 
 EXPOSE 8188
