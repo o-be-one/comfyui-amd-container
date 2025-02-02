@@ -1,4 +1,4 @@
-# comfyui-amd-docker (WIP)
+# comfyui-amd-container (WIP)
 
 **Work in Progress**
 
