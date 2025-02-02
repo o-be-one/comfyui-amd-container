@@ -1,65 +1,65 @@
 # comfyui-amd-container
 
-Exécutez **ComfyUI** dans un conteneur (Podman/Docker) avec carte graphique AMD.  
-✅ Testé avec Podman (nécessite `root`)  
-🚀 Fonctionne aussi avec [MaximumSettings](MAXIMUMSETTINGS.md)
+Run **ComfyUI** in a container (Podman/Docker) with AMD graphics card.  
+✅ Tested with Podman (requires `root`)  
+🚀 Tested on [MaximumSettings](MAXIMUMSETTINGS.md)
 
-**Configuration de référence** :
-- CPU : AMD 7800X3D
-- GPU : AMD 7900XTX (24GB VRAM)
-- RAM : 32 Go DDR5
-- OS : Linux Mint 22
+**Reference Configuration**:
+- CPU: AMD 7800X3D
+- GPU: AMD 7900XTX (24GB VRAM)
+- RAM: 32 GB DDR5
+- OS: Linux Mint 22
 
-## Prérequis
+## Prerequisites
 
-### Matériel
-- Carte graphique AMD compatible ROCm (hors GPU intégrés)
-- 16 Go+ RAM système
+### Hardware
+- AMD graphics card compatible with ROCm (excluding integrated GPUs)
+- 16 GB+ system RAM
 
-### Logiciel
-- Podman + podman-compose **OU** Docker + docker-compose
+### Software
+- Podman + podman-compose **OR** Docker + docker-compose
 - DKMS (`sudo apt install dkms`)
-- Headers Linux (`linux-headers-generic`)
-- Outils de compilation (gcc/g++)
+- Linux headers (`linux-headers-generic`)
+- Build tools (gcc/g++)
 
 ## Installation
 
-1. **Préparer les modules kernel AMD** :
+1. **Prepare the AMD kernel modules**:
 ```bash
-# Télécharger le package d'installation AMD
+# Download the AMD installation package
 wget https://repo.radeon.com/amdgpu-install/<VERSION>/ubuntu/focal/amdgpu-install_<VERSION>.deb
 
-# Installer les dépendances DKMS
+# Install DKMS dependencies
 sudo apt install ./amdgpu-install_<VERSION>.deb
 sudo amdgpu-install --usecase=dkms
 ```
 
-2. **Vérifier l'installation** :
+2. **Check the installation**:
 ```bash
-dkms status | grep amdgpu  # Doit retourner 'amdgpu' avec status 'installed'
-lsmod | grep amdgpu  # Vérifier le chargement du module
+dkms status | grep amdgpu  # Should return 'amdgpu' with status 'installed'
+lsmod | grep amdgpu  # Check if the module is loaded
 ```
 
-3. **Démarrer ComfyUI** :
+3. **Start ComfyUI**:
 ```bash
-# Avec Podman
-sudo podman-compose -f docker-compose.yaml up
+# With Podman
+sudo podman compose -f docker-compose.yaml up
 
-# Avec Docker
-docker-compose -f docker-compose.yaml up
+# With Docker
+docker compose -f docker-compose.yaml up
 ```
 
-## Fonctionnalités clés
-- 🛠️ Image Docker maintenue via GitHub Actions
-- 📦 Version spécifique de ComfyUI (pas de build manuel)
-- 🔒 Isolation via containers (sans modifier l'hôte)
-- 📄 Documentation unifiée ([MaximumSettings](MAXIMUMSETTINGS.md))
+## Key Features
+- 🛠️ Docker image maintained via GitHub Actions
+- 📦 Specific version of ComfyUI (no manual build)
+- 🔒 Isolation via containers (without modifying the host)
+- 📄 Unified documentation ([MaximumSettings](MAXIMUMSETTINGS.md))
 
 ## Roadmap
-| Statut | Fonctionnalité                     |
-|--------|------------------------------------|
-| ✅     | Documentation complète             |
-| ✅     | Versionnage de ComfyUI             |
-| ✅     | CI/CD avec GitHub Container Registry |
-| ⏳     | Compatibilité Docker vérifiée      |
-| ⏳     | Intégration Dependabot             |
+| Status | Feature                             |
+|--------|-------------------------------------|
+| ✅     | Complete documentation               |
+| ✅     | Versioning of ComfyUI               |
+| ✅     | CI/CD with GitHub Container Registry |
+| ⏳     | Verified Docker compatibility        |
+| ⏳     | Dependabot integration               |
