@@ -1,49 +1,65 @@
-# comfyui-amd-container (WIP)
+# comfyui-amd-container
 
-**Work in Progress**
+Exécutez **ComfyUI** dans un conteneur (Podman/Docker) avec carte graphique AMD.  
+✅ Testé avec Podman (nécessite `root`)  
+🚀 Fonctionne aussi avec [MaximumSettings](MAXIMUMSETTINGS.md)
 
-Run ComfyUI in container (including Podman) using your AMD GPU graphic card.
-*Built to work with Podman for now.*
+**Configuration de référence** :
+- CPU : AMD 7800X3D
+- GPU : AMD 7900XTX (24GB VRAM)
+- RAM : 32 Go DDR5
+- OS : Linux Mint 22
 
-As I run Apple systems at home and play games, I have a cloud instance from a provider near me. Here the spec I have with them as bare metal ([MaximumSettings setup](#maximumsettings-setup)):
+## Prérequis
 
-- CPU: AMD 7800X3D
-- GPU: AMD 7900XTX
-- RAM: 32go DDR5
-- Linux Mint 22
+### Matériel
+- Carte graphique AMD compatible ROCm (hors GPU intégrés)
+- 16 Go+ RAM système
+
+### Logiciel
+- Podman + podman-compose **OU** Docker + docker-compose
+- DKMS (`sudo apt install dkms`)
+- Headers Linux (`linux-headers-generic`)
+- Outils de compilation (gcc/g++)
 
 ## Installation
 
-### Requirements
+1. **Préparer les modules kernel AMD** :
+```bash
+# Télécharger le package d'installation AMD
+wget https://repo.radeon.com/amdgpu-install/<VERSION>/ubuntu/focal/amdgpu-install_<VERSION>.deb
 
-#### Hardware
+# Installer les dépendances DKMS
+sudo apt install ./amdgpu-install_<VERSION>.deb
+sudo amdgpu-install --usecase=dkms
+```
 
-- an AMD GPU with enough VRAM that supports rocm (not integrated)
-- enough ram
+2. **Vérifier l'installation** :
+```bash
+dkms status | grep amdgpu  # Doit retourner 'amdgpu' avec status 'installed'
+lsmod | grep amdgpu  # Vérifier le chargement du module
+```
 
-#### Software
+3. **Démarrer ComfyUI** :
+```bash
+# Avec Podman
+sudo podman-compose -f docker-compose.yaml up
 
-- podman
-- podman-compose
-- dkms
-- amdgpu-dkms (required to properly run AMD GPU in containers)
+# Avec Docker
+docker-compose -f docker-compose.yaml up
+```
 
-### Preparation
+## Fonctionnalités clés
+- 🛠️ Image Docker maintenue via GitHub Actions
+- 📦 Version spécifique de ComfyUI (pas de build manuel)
+- 🔒 Isolation via containers (sans modifier l'hôte)
+- 📄 Documentation unifiée ([MaximumSettings](MAXIMUMSETTINGS.md))
 
-Kernel modules for AMD GPU is required. For that, you need:
-- Linux headers (including generic) with build tools like gcc, g++, etc.
-- amdgpu-install available on AMD website ([doc](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/amdgpu-install.html))
-
-### Installation
-
-When you have amdgpu-install, install it `sudo apt install ./amdgpu-install-<version>`. Now you can run it with arguments to only setup dkms kernel modules: `sudo amdgpu-install --usecase=dkms`. To verify it's installed properly: `dkms status`.
-
-I don't got further as all of this is in the docs already and we only particularly need this one.
-
-## TODO
-
-- [ ] clean documentation
-- [ ] ensure compose file compatibility with Docker
-- [ ] add DependaBot to keep ComfyUI up to date
-- [x] set a defined ComfyUI version
-- [x] use GitHub Actions to build and push the container to GitHub registry (and remove the build step in compose)
+## Roadmap
+| Statut | Fonctionnalité                     |
+|--------|------------------------------------|
+| ✅     | Documentation complète             |
+| ✅     | Versionnage de ComfyUI             |
+| ✅     | CI/CD avec GitHub Container Registry |
+| ⏳     | Compatibilité Docker vérifiée      |
+| ⏳     | Intégration Dependabot             |

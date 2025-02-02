@@ -1,17 +1,36 @@
-# MaximumSettings user guide
+# MaximumSettings User Guide (AMD GPU Setup)
 
-If you are a customer of MaximumSettings, be happy because this is the provider I used for this project.
-Please follow below instructions as some steps are required prior following the [README.md](README.md).
+**Prérequis** : Ce guide complète le [README.md](README.md) principal et nécessite une instance **MaximumSettings** "Bare Metal" (tiers 4).
 
-## MaximumSettings setup
+## Configuration requise pour l'hôte
 
-MaximumSettings provides setup with AMD mesa drivers that are not advanced enough for some AI use. Fortunately, as I made the choice to use containers so requirements on host were quite minimal as only amdgpu-dkms was required.
+Les instances MaximumSettings utilisent des pilotes AMD Mesa génériques. Pour les workloads d'IA avancées :  
 
-### Prepare host
+1. **Mise à jour des outils de compilation** :
+```bash
+sudo apt install gcc-14 g++-14
+```
 
-Bare metal comes with all build tools. I only needed to upgrade to gcc-14, g++-14 and to install linux-headers-6.10.10-generic. While gcc and g++ are available in the repo, linux-headers-generic for this kernel version are not.
-Check the kernel version with `uname -r`, following will be about kernel 6.10.10 so consider to adjust what you read accordingly.
+2. **Installation des headers de kernel spécifiques** :  
+[Télécharger les headers pour le noyau 6.10.10](https://mirrors.portworx.com/mirrors/https/kernel.ubuntu.com/mainline/v6.10.10/amd64/linux-headers-6.10.10-061010-generic_6.10.10-061010.202409121037_amd64.deb)  
+```bash
+sudo apt install ./linux-headers-6.10.10-generic_6.10.10-061010.202409121037_amd64.deb
+```
 
-[Download Linux headers generic for 6.10.10 here](https://mirrors.portworx.com/mirrors/https/kernel.ubuntu.com/mainline/v6.10.10/amd64/linux-headers-6.10.10-061010-generic_6.10.10-061010.202409121037_amd64.deb), and then run `sudo apt install ./linux-headers-6.10.10-generic_6.10.10-061010.202409121037_amd64.deb`. You can reboot, but I'm not sure I needed to.
+3. **Vérification de l'installation** :  
+```bash
+dpkg -l | grep linux-headers-6.10.10-061010-generic
+```
 
-You are all set, you can follow the [Readme from the requirements](#requirements) to install amdgpu-dkms and start your container.
+4. **Redémarrage du système** :  
+```bash
+sudo reboot
+```
+
+**Note** : Si votre noyau est différent du 6.10.10, adaptez les numéros de version dans les commandes.
+
+## Prochaines étapes
+
+Poursuivez avec le [README.md](README.md) principal pour :  
+1. Installer ```amdgpu-dkms```
+2. Démarrer le conteneur ComfyUI
