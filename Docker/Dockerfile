@@ -13,14 +13,14 @@ ENV PYTORCH_ROCM_ARCH=gfx1100
 WORKDIR /app
 
 RUN git clone https://github.com/comfyanonymous/ComfyUI.git . \
+    && pip3 install -r requirements.txt \
     && pip3 install --no-cache-dir \
     torch \
     torchvision \
     torchaudio \
     --index-url https://download.pytorch.org/whl/rocm6.2 \
     --force-reinstall \
-    && pip3 install numpy scipy --force-reinstall \
-    && pip3 install -r requirements.txt
+    && pip3 install numpy scipy --force-reinstall
 
 EXPOSE 8188
 
