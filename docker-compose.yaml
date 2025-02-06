@@ -32,6 +32,7 @@ services:
       - /dev/dri
     group_add:
       - video
+      - nogroup
     environment:
       - HSA_OVERRIDE_GFX_VERSION=11.0.0 # Edit according to your AMD GPU
       - PYTORCH_ROCM_ARCH=gfx1100 # Edit according to your AMD GPU
