@@ -30,6 +30,9 @@ services:
     devices:
       - /dev/kfd
       - /dev/dri
+    environment:
+      - COMFYUI_LISTEN=127.0.0.1
+    network_mode: "host"
     group_add:
       - video
       - nogroup

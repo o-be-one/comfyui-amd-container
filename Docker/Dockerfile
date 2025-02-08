@@ -22,8 +22,9 @@ RUN git clone https://github.com/comfyanonymous/ComfyUI.git . \
     --force-reinstall \
     && pip3 install numpy scipy --force-reinstall
 
+ENV COMFYUI_LISTEN="127.0.0.1"
 EXPOSE 8188
 
 VOLUME /app/models/configs
 
-CMD ["python3", "main.py", "--listen", "0.0.0.0"]
+CMD python3 main.py --listen ${COMFYUI_LISTEN}
